@@ -1,6 +1,5 @@
 package com.revature.model;
 
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,25 +9,29 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
+
 
 @Entity
 
 @Table(name = "requests")
-
-
 public class Request {
-	
+
 	@Id
-	@Column(name="requestId")
+	@Column
 	@GeneratedValue(generator = "request_id_seq", strategy = GenerationType.AUTO)
 	@SequenceGenerator(allocationSize = 1, name = "request_id_seq", sequenceName = "request_id_seq")
 	private int requestId;
 	
+	@Column(name = "userName")
+	private String userName;
 	
 	@Column(name = "request4")
 	private String request4;
+	
 	@Column(name = "requestAmount")
-	private int requestAmount;
+	private double requestAmount;
+	
 	@Column(name = "requestStatus")
 	private int requestStatus;
 	
@@ -37,9 +40,10 @@ public class Request {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Request(int requestId, String request4, int requestAmount, int requestStatus) {
+	public Request(int requestId, String userName, String request4, double requestAmount, int requestStatus) {
 		super();
 		this.requestId = requestId;
+		this.userName = userName;
 		this.request4 = request4;
 		this.requestAmount = requestAmount;
 		this.requestStatus = requestStatus;
@@ -53,6 +57,14 @@ public class Request {
 		this.requestId = requestId;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public String getRequest4() {
 		return request4;
 	}
@@ -61,7 +73,7 @@ public class Request {
 		this.request4 = request4;
 	}
 
-	public int getRequestAmount() {
+	public double getRequestAmount() {
 		return requestAmount;
 	}
 
@@ -79,7 +91,7 @@ public class Request {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(request4, requestAmount, requestId, requestStatus);
+		return Objects.hash(request4, requestAmount, requestId, requestStatus, userName);
 	}
 
 	@Override
@@ -92,13 +104,14 @@ public class Request {
 			return false;
 		Request other = (Request) obj;
 		return Objects.equals(request4, other.request4) && requestAmount == other.requestAmount
-				&& requestId == other.requestId && requestStatus == other.requestStatus;
+				&& requestId == other.requestId && requestStatus == other.requestStatus
+				&& Objects.equals(userName, other.userName);
 	}
 
 	@Override
 	public String toString() {
-		return "Request [requestId=" + requestId + ", request4=" + request4 + ", requestAmount=" + requestAmount
-				+ ", requestStatus=" + requestStatus + "]";
+		return "Request [requestId=" + requestId + ", userName=" + userName + ", request4=" + request4
+				+ ", requestAmount=" + requestAmount + ", requestStatus=" + requestStatus + "]";
 	}
 	
 	
