@@ -1,7 +1,7 @@
 EmployeeReimbursement
 Project Description
 
-An employee reimbursement program that will allows a user (either a manager or employee) to sign into their view. An employee's view will allow them to view any request they have made with its information (reimbursement ID, amount, status), and make a new reimbursement request. A Manager's viw will allow them to view all of the reimbursements created by the employees, statistics about the reimbursements, and approve/deny the reimbursements.
+An employee reimbursement program that will allows a user (either a manager or employee) to sign into their view. An employee's view will allow them to view any request they have made with its information (reimbursement ID, amount, status), and make a new reimbursement request. A Manager's view will allow them to view all of the reimbursements created by the employees, statistics about the reimbursements, and approve/deny the reimbursements.
 Technologies Used
 
     JavaScript
