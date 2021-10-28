@@ -1,13 +1,48 @@
-<!DOCTYPE html>
-<html>
-    <header>
-        <title>Employee Reimbursement</title>
-    </header>
+     <meta charset="UTF-8" />
+        <!--We can also specify the location of external stylesheets in the head as well.-->
+        <link rel="stylesheet" href=" Styles/LogInStyle.css">
+    </head>
+    <h1 id="userName"></h1>
+    <button type="button" onclick="logout()">Logout</button>
     <body>
         <header>
             <div>
                 <h1>Manager Home</h1>
+                <h2>Approve / Deny </h2>
             </div>
         </header>
+      
+      
+      <div id="center" class="center">
+        <form id="newRequestForm" method="POST" class="tac">
+                <input type="number" placeHolder="Request ID" name="requestId"/> 
+                <br> <br>
+                <button id="button" type="submit" formaction="http://localhost:8080/request/approve">Approve</button>
+                <button id="button" type="submit" formaction="http://localhost:8080/request/deny">Deny</button>
+        </form>
+        <footer>
+          <h6>Copyright No One. No Rights Reserved.</h6>
+      </footer>
+      </div>
+      <div>
+      	<table id="reimbursementsTable"></table>
+      	<table id="totalReimAmount"></table>
+      	<table id="lowestSpend"></table>
+      	<table id="highestSpend"></table>
+      	<table id="averageReim"></table>
+      </div>
+      	<h2>Reimbursement Requests:</h2>
+      	<br>
+      	<div id="table_div">
+      	<table id="requests_table">
+      		<tr>
+      			<th><th>
+      			<th><th>
+      			<th><th>
+      			<th><th>      			
+      		</tr>
+      	</table>
+      </div>
+      <script src="Scripts/managerHome.js"></script>
     </body>
 </html>

@@ -26,8 +26,19 @@ private UserRepository userRepository;
 	public void save(User user) {
 		this.userRepository.save(user);
 	}
-	public Object findById(String pathParam) {
+	
+	public User findById(String pathParam) {
 		
 		return this.userRepository.findUserById(pathParam);
+	}
+	
+	public User findByUserName(String userName) {
+		
+		return this.userRepository.findByUserName(userName);
+	}
+	
+	public User LogIn(String userName) {
+		System.out.println("4");
+		return this.userRepository.logIn(userName);
 	}
 }

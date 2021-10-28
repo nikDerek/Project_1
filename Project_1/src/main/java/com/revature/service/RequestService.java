@@ -28,8 +28,16 @@ public class RequestService {
 		this.requestRepository.saveRequest(request);
 	}
 	
-	public Object requestsByUserName(String pathParam) {
-		return this.requestRepository.requestsByUserName(pathParam);
+	public List<Request> requestsByUserName(String userName) {
+		return this.requestRepository.requestsByUserName(userName);
+	}
+	
+	public void approve(int requestId) {
+		this.requestRepository.approve(requestId);
+	}
+	
+	public void deny(int requestId) {
+		this.requestRepository.deny(requestId);
 	}
 
 }

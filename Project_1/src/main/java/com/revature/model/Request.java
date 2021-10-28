@@ -32,15 +32,15 @@ public class Request {
 	@Column(name = "requestAmount")
 	private double requestAmount;
 	
-	@Column(name = "requestStatus")
-	private int requestStatus;
+	@Column(name = "requestStatus", insertable=true, updatable = true, nullable = false, columnDefinition = "varchar(25) default 'Pending'")
+	private String requestStatus;
 	
 	public Request() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Request(int requestId, String userName, String request4, double requestAmount, int requestStatus) {
+	public Request(int requestId, String userName, String request4, double requestAmount, String requestStatus) {
 		super();
 		this.requestId = requestId;
 		this.userName = userName;
@@ -81,11 +81,11 @@ public class Request {
 		this.requestAmount = requestAmount;
 	}
 
-	public int getRequestStatus() {
+	public String getRequestStatus() {
 		return requestStatus;
 	}
 
-	public void setRequestStatus(int requestStatus) {
+	public void setRequestStatus(String requestStatus) {
 		this.requestStatus = requestStatus;
 	}
 

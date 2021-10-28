@@ -4,9 +4,12 @@ import static io.javalin.apibuilder.ApiBuilder.get;
 import static io.javalin.apibuilder.ApiBuilder.path;
 import static io.javalin.apibuilder.ApiBuilder.post;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.revature.model.Request;
+import com.revature.model.User;
 import com.revature.service.RequestService;
 
 import io.javalin.Javalin;
@@ -21,17 +24,55 @@ public class RequestController {
 		this.requestService = new RequestService();
 		
 		app.routes(()-> {
-			path("/request/all",() -> {
+			path("/request", () -> {
+				
+				path("/all",() -> {
 				get(findAllRequests);
-			});
-			//path("/request/:id",() -> {
-				//get(findById);
-			//});
-			path("/request/new",() -> {
+				});
+				
+				path("/username",() -> {
+				get(requestsByUserName);
+				});
+				
+				path("/new",() -> {
 				post(saveRequest);
+				});
+				
+				path("/approve", () -> {
+					post(approve);
+				});
+				path("/deny", () -> {
+					post(deny);
+				});
 			});
 		});
 	}
+	
+	private Handler approve = ctx -> {
+		
+		HttpSession session = ctx.req.getSession(false);
+		
+		String requestId = ctx.req.getParameter("requestId");
+		//System.out.println(requestId);
+		this.requestService.approve(Integer.parseInt(requestId));
+		ctx.redirect("/managerHome.html");
+		//System.out.println(requestId);
+	};
+	
+	private Handler deny = ctx -> {
+		
+		HttpSession session = ctx.req.getSession(false);
+		this.requestService.deny(Integer.parseInt(ctx.req.getParameter("requestId")));
+		ctx.redirect("/managerHome.html");
+	};
+	
+	private Handler requestsByUserName = ctx -> {
+		HttpSession session = ctx.req.getSession(false);	
+	
+		List<Request> requests = this.requestService.requestsByUserName((String) session.getAttribute("userName"));
+		System.out.println(requests.toString());
+		ctx.json(requests);
+	};
 	
 	private Handler findAllRequests = ctx -> {
 		HttpSession session = ctx.req.getSession(false);
@@ -43,13 +84,18 @@ public class RequestController {
 	};
 	
 	private Handler saveRequest = ctx -> {
-		Request request = new Request(
-				Integer.parseInt(ctx.req.getParameter("requestId")),
-				ctx.req.getParameter("userName"),
+		HttpSession s = ctx.req.getSession(false);
+		String userName = (String) s.getAttribute("userName");
+		Request request = new Request(1,
+				//Integer.parseInt(ctx.req.getParameter("requestId")),
+				userName,
+				//ctx.req.getParameter("userName"),
+				//s.getAttribute("userName"),
 				ctx.req.getParameter("request4"),
 				Double.parseDouble(ctx.req.getParameter("requestAmount")),
-				Integer.parseInt(ctx.req.getParameter("requestStatus")));
+				ctx.req.getParameter("requestStatus"));
+				//new User(s.getAttribute("userName"), "NA")),
 			this.requestService.save(request);
-		//ctx.redirect("/home.html");
+		ctx.redirect("/employeeHome.html");
 	};
 }

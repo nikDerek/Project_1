@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <header>
-        <title>Employee Reimbursement</title>
-    </header>
+	<head>
+        <title>Project_1_Employee_Home</title>
+        <meta charset="UTF-8" />
+        <!--We can also specify the location of external stylesheets in the head as well.-->
+        <link rel="stylesheet" href=" Styles/LogInStyle.css">
+    </head>
+    <h1 id="userName"></h1>
+    <button type="button" onclick="logout()">Logout</button>
     <body>
         <header>
             <div>
                 <h1>Employee Home</h1>
+                <h2>New reimbursement request:</h2>
             </div>
         </header>
+      <div id="center" class="center">
+        <form id="employee_form" method="POST" action="http://localhost:8080/request/new">
+            <!--You'll want your input elements to have a "name" attribute if you want to be able to retrieve your form data on the server side.-->
+            <input type="text" placeholder="0.00" required maxlength="20" name="requestAmount"/>
+            <br><br>
+            <input type="text" placeholder="Description" required name="request4"/>
+            <br><br>
+            <input type="hidden" placeholder="Name" required name="userName" value="" id="user_input"/>
+             <button id="button" type="submit" name="Sign-in">Submit</button>
+        </form>
+        <footer>
+          <h6>Copyright No One. No Rights Reserved.</h6>
+      </footer>
+      </div>
+      	<h2>Reimbursement Requests:</h2>
+      	<br>
+      	<div id="table_div">
+      	<table id="requests_table">
+      		<tr>
+      			<th><th>
+      			<th><th>
+      			<th><th>
+      			<th><th>      			
+      		</tr>
+      	</table>
+      </div>
+      <script src="Scripts/employeeHome.js"></script>
     </body>
 </html>
