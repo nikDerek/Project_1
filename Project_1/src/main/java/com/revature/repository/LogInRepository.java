@@ -15,28 +15,8 @@ import com.revature.util.HibernateSessionFactory;
 
 import io.javalin.http.Context;
 
-public class LogInRepository {
+public class LogInRepository {	
 	
-//	public void login(Context ctx) {
-//	
-//	User attemptUser = ctx.bodyAsClass(User.class);
-//	User approvedUser = logInService.logIn(attemptUser.getUserName());
-//	
-//	if(approvedUser != null) {
-//		if(attemptUser.getPassword().equals(approvedUser.getPassword())) {
-//			ctx.json(approvedUser);
-//			
-//			return;
-//			
-//		}
-//	  }
-//	//if not successful sends this
-//	ctx.status(401);
-//   }
-	
-	
-	
-	//@SuppressWarnings("null")
 	public Object logIn(String userName, String password) {
         Session s = null;
         Transaction tx = null;
@@ -54,17 +34,14 @@ public class LogInRepository {
             Query<User> query = s.createQuery(cq);
             user = query.getSingleResult();
         
-            //while(user != null) {
+         
             if((user.getPassword().equals(password)) && user.getUserType() == "manager") {
             	ctx.req.getSession();
-            	//UserController userController = new UserController();
             	ctx.redirect("/managerHome.html");
             }else if((user.getPassword().equals(password)) && user.getUserType() == "employee") {
             	ctx.req.getSession();
             	ctx.redirect("/employeeHome.html");
             }
-          //}
-        	 //tx.commit();
         }catch(HibernateException e) {
             //tx.rollback();
             e.printStackTrace();
