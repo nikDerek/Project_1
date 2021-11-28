@@ -62,27 +62,23 @@ public class UserController {
 	private Handler logIn1 = ctx ->{
 
 		HttpSession session = ctx.req.getSession();//.setAttribute(null, findAllUsers);
-		//UserService userService = new UserService();
 		
 		String userName = ctx.req.getParameter("userName");
 		String password = ctx.req.getParameter("password");
 		
 		System.out.println(userName);
+		
 		session.setAttribute("userName", userName);
 		
-		//boolean validate = logInService.logIn(userName, password);
-		//User validUser = new User();
 		user = this.userService.findByUserName(userName);
 		
-		System.out.println("3.1");	
+// 		System.out.println("3.1");	
 			
-		//if(validUser != null) {
-				 System.out.println("6");
-				 System.out.println(userName);
-				 System.out.println(password);
-				 System.out.println(user);
-//				User approvedUser = userService.findByUserName(userName);
-//				ctx.json(approvedUser);
+		
+// 				 System.out.println("6");
+// 				 System.out.println(userName);
+// 				 System.out.println(password);
+// 				 System.out.println(user);
 				
 	            if(user.getPassword().equals(password) && user.getUserType().equals("manager")) {
 	            ctx.redirect("/managerHome.html");
@@ -93,12 +89,7 @@ public class UserController {
 	            }else {
 				ctx.redirect("/Login.html");
 	            }
-        	
-       
-			
-		
-//			this.logInService.logIn(ctx.pathParam("userName"),
-//				ctx.pathParam("password"));
+        
 	};
 
 
@@ -114,7 +105,6 @@ public class UserController {
 
 	private Handler saveUser = ctx -> {
 		User user = new User(
-				//Integer.parseInt(ctx.req.getParameter("userId")),
 				ctx.req.getParameter("userId"),
 				ctx.req.getParameter("userType"),
 				ctx.req.getParameter("name"),
