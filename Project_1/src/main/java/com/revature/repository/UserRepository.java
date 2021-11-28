@@ -37,12 +37,7 @@ public class UserRepository {
             cq.select(root).where(cb.equal(root.get("userName"), userName));
             Query<User> query = s.createQuery(cq);
             user = query.getSingleResult();
-        
-//            if(user != null) {
-//            	return true;
-//            }
         	 tx.commit();
-        	// s.close();
         }catch(HibernateException e) {
             tx.rollback();
             e.printStackTrace();
@@ -54,21 +49,12 @@ public class UserRepository {
 	public List<User> findAll(){
 		List<User> users = null;
 		
-		// We need a session to do work on our DB
 		Session s = null;
 		Transaction tx = null;
 		
 		try {
 			s = HibernateSessionFactory.getSession();
 			tx = s.beginTransaction();
-			/*
-			 * Hibernate has its own query language called "HQL" - Hibernate Query Language.
-			 * HQL allows us to emphasize our Java models rather than the entities in our DB when we
-			 * are making queries. It provides a more object-oriented approach to data persistence.
-			 * 
-			 * I should point out that you have the option to use native SQL (i.e. plain old SQL). You can simply
-			 * do so by calling "createNativeQuery".
-			 */
 			users = s.createQuery("FROM User", User.class).getResultList();
 			tx.commit();
 		}catch(HibernateException e) {
@@ -113,9 +99,7 @@ public class UserRepository {
             cq.select(root).where(cb.equal(root.get("userId"), userId));
             Query<User> query = s.createQuery(cq);
             user = query.getSingleResult();
-            //tx.commit();
         }catch(HibernateException e) {
-           // tx.rollback();
             e.printStackTrace();
         }finally {
             s.close();
