@@ -21,11 +21,6 @@ function getAllRequests(){
     console.log(xhr);
 
 
-    //While the readyState is 3 or 4, we're just waiting around for the response. As such, we need to determine what will happen when we do receive a response.
-
-    /*
-        Each time the readyState changes, this callback we define will be invoked.
-    */
     xhr.onreadystatechange = function(){
         // If the readyState is 4 and the HTTP status code is 200, I have access to the data I requested when I sent the HTTP request.
         if(xhr.readyState === 4 && xhr.status === 200){
@@ -34,11 +29,7 @@ function getAllRequests(){
 
             console.log(requests);
             
-            /*
-                We need to iterate over this array of reimbursement objects in order to make a div for each reimbursement. We can use a for loop to accomplish this.
-
-                Here we have used an enhanced for loop syntax.  
-            */
+            
 			
             for(let request of requests){
                 
