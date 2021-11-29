@@ -16,32 +16,36 @@ function getAllRequests(){
     url = url + user_hold.innerText;
     
 
-    // Using the ready states of an XMLHttpRequest can guide your AJAX workflow.
+   
     let xhr = new XMLHttpRequest(); //readyState is 0
     console.log(xhr);
 
 
-    
+
     xhr.onreadystatechange = function(){
         
         if(xhr.readyState === 4 && xhr.status === 200){
-            
+
             let requests = JSON.parse(xhr.response);
 
             console.log(requests);
-            
+
 			
             for(let request of requests){
                 
 
             let request_container = document.getElementById('request_container');
 
-            
 
             let new_div = document.createElement('div');
             new_div.className = "request_div";
 
+
       		let new_h32 = document.createElement('h3');
+
+       
+
+
 			new_h32.innerText = request.requestId;
 			
             let new_h3 = document.createElement('h3');
@@ -56,11 +60,13 @@ function getAllRequests(){
             let new_para3 = document.createElement('p');
             new_para3.innerText = "Status: " + request.requestStatus;
 
+
             new_div.appendChild(new_h32);
             new_div.appendChild(new_h3);
             new_div.appendChild(new_para);
             new_div.appendChild(new_para2);
             new_div.appendChild(new_para3);
+
 
             request_container.appendChild(new_div);
             }
@@ -68,7 +74,7 @@ function getAllRequests(){
         }
     }
     
-    
+
     xhr.open('GET', url); //readyState is 1
 
    
@@ -83,7 +89,6 @@ function logout() {
     window.location.replace("http://localhost:8080/LogIn.html");
 
 }
-
 
 window.onload = function(){
     this.getAllRequests();

@@ -61,23 +61,29 @@ public class UserController {
 	
 	private Handler logIn1 = ctx ->{
 
+
 		HttpSession session = ctx.req.getSession();
+
 		String userName = ctx.req.getParameter("userName");
 		String password = ctx.req.getParameter("password");
 		
 		System.out.println(userName);
+		
 		session.setAttribute("userName", userName);
 		
-		
+
+	
 		user = this.userService.findByUserName(userName);
 		
-		System.out.println("3.1");	
+// 		System.out.println("3.1");	
 			
 		
+
 				 System.out.println("6");
 				 System.out.println(userName);
 				 System.out.println(password);
 				 System.out.println(user);
+
 
 				
 	            if(user.getPassword().equals(password) && user.getUserType().equals("manager")) {
@@ -89,8 +95,8 @@ public class UserController {
 	            }else {
 				ctx.redirect("/Login.html");
 	            }
-	            };
 
+	            };
 
 
 	private Handler findAllUsers = ctx -> {
@@ -104,7 +110,7 @@ public class UserController {
 
 	private Handler saveUser = ctx -> {
 		User user = new User(
-				
+
 				ctx.req.getParameter("userId"),
 				ctx.req.getParameter("userType"),
 				ctx.req.getParameter("name"),

@@ -72,5 +72,4 @@ function logout() {
 
 }
 
-
 window.onload = getAllRequests();

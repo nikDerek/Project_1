@@ -37,8 +37,8 @@ public class UserRepository {
             cq.select(root).where(cb.equal(root.get("userName"), userName));
             Query<User> query = s.createQuery(cq);
             user = query.getSingleResult();
-        	tx.commit();
-        	
+        	 tx.commit();
+
         }catch(HibernateException e) {
             tx.rollback();
             e.printStackTrace();
@@ -50,13 +50,18 @@ public class UserRepository {
 	public List<User> findAll(){
 		List<User> users = null;
 		
+
 				Session s = null;
+
 		Transaction tx = null;
 		
 		try {
 			s = HibernateSessionFactory.getSession();
 			tx = s.beginTransaction();
+
 			
+
+
 			users = s.createQuery("FROM User", User.class).getResultList();
 			tx.commit();
 		}catch(HibernateException e) {
@@ -101,9 +106,7 @@ public class UserRepository {
             cq.select(root).where(cb.equal(root.get("userId"), userId));
             Query<User> query = s.createQuery(cq);
             user = query.getSingleResult();
-            //tx.commit();
         }catch(HibernateException e) {
-           // tx.rollback();
             e.printStackTrace();
         }finally {
             s.close();

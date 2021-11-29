@@ -15,9 +15,8 @@ import com.revature.util.HibernateSessionFactory;
 
 import io.javalin.http.Context;
 
-public class LogInRepository {
+public class LogInRepository {	
 	
-
 	public Object logIn(String userName, String password) {
         Session s = null;
         Transaction tx = null;
@@ -35,15 +34,17 @@ public class LogInRepository {
             Query<User> query = s.createQuery(cq);
             user = query.getSingleResult();
         
+       
             if((user.getPassword().equals(password)) && user.getUserType() == "manager") {
             	ctx.req.getSession();
-            	
+
             	ctx.redirect("/managerHome.html");
             }else if((user.getPassword().equals(password)) && user.getUserType() == "employee") {
             	ctx.req.getSession();
             	ctx.redirect("/employeeHome.html");
-            }
+        
           
+
         }catch(HibernateException e) {
             
             e.printStackTrace();
