@@ -69,7 +69,7 @@ public class Login {
 	@Test
 	public void loginfail() {
 		
-		driver.get("http://localhost:7000/loginpage.html");
+		driver.get("http://localhost:8080/loginpage.html");
 		
 		WebElement usernameBox = driver.findElement(By.id("user"));
 		WebElement passwordBox = driver.findElement(By.id("pass"));
