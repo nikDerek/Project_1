@@ -47,6 +47,35 @@ public class RequestRepository {
 		}
 	}
 	
+	public void pending(int requestId) {
+		Session session = null;
+		Transaction tx = null;
+		Request decision = null;
+		
+		try {
+			session = HibernateSessionFactory.getSession();
+			tx = session.beginTransaction();
+			
+			CriteriaBuilder cb = session.getCriteriaBuilder();
+			CriteriaQuery<Request> cq = cb.createQuery(Request.class);
+			Root<Request> rootEntry = cq.from(Request.class);
+			CriteriaQuery<Request> all = cq.select(rootEntry).where(cb.equal(rootEntry.get("requestId"), requestId));
+		
+			TypedQuery<Request> allQuery = session.createQuery(all);
+			decision = allQuery.getSingleResult();
+			
+			decision.setRequestStatus("Pending");
+			
+			session.saveOrUpdate(decision);
+			tx.commit();
+		}catch(HibernateException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+	}
+	
 	public void approve(int requestId) {
 		Session session = null;
 		Transaction tx = null;

@@ -24,4 +24,8 @@ private EmployeeRepository employeeRepository;
 	public void save(Employee employee) {
 		this.employeeRepository.save(employee);
 	}
+	public Employee getByUsername(String username) {
+		return this.employeeRepository.getByUsername(username);
+	}
 }
+

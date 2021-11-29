@@ -72,5 +72,5 @@ function logout() {
 
 }
 
-// Any function you call here is going to be invoked as soon as the window loads.
+
 window.onload = getAllRequests();
