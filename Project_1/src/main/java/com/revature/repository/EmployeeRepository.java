@@ -2,12 +2,17 @@ package com.revature.repository;
 
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.model.Employee;
-
+import com.revature.model.Request;
 import com.revature.util.HibernateSessionFactory;
 
 
@@ -23,14 +28,7 @@ public class EmployeeRepository {
 		try {
 			s = HibernateSessionFactory.getSession();
 			tx = s.beginTransaction();
-			/*
-			 * Hibernate has its own query language called "HQL" - Hibernate Query Language.
-			 * HQL allows us to emphasize our Java models rather than the entities in our DB when we
-			 * are making queries. It provides a more object-oriented approach to data persistence.
-			 * 
-			 * I should point out that you have the option to use native SQL (i.e. plain old SQL). You can simply
-			 * do so by calling "createNativeQuery".
-			 */
+			
 			employees = s.createQuery("FROM Employee", Employee.class).getResultList();
 			tx.commit();
 		}catch(HibernateException e) {
@@ -58,5 +56,30 @@ public class EmployeeRepository {
 		}finally {
 			session.close();
 		}
+	}
+	
+	public Employee getByUsername(String username){
+		Session session = null;
+		Transaction tx = null;
+		Employee employee = null;
+		
+		try {
+			session = HibernateSessionFactory.getSession();
+			tx = session.beginTransaction();
+			CriteriaBuilder cb = session.getCriteriaBuilder();
+			CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+			Root<Employee> rootEntry = cq.from(Employee.class);
+			CriteriaQuery<Employee> all = cq.select(rootEntry).where(cb.equal(rootEntry.get("userName"), username));
+		
+			TypedQuery<Employee> allQuery = session.createQuery(all);
+			employee = allQuery.getSingleResult();
+			tx.commit();
+		}catch(HibernateException e) {
+			tx.rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return employee;
 	}
 }

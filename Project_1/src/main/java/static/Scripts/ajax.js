@@ -21,29 +21,31 @@ function getAllRequests(){
     console.log(xhr);
 
 
+
     xhr.onreadystatechange = function(){
-        // If the readyState is 4 and the HTTP status code is 200, I have access to the data I requested when I sent the HTTP request.
+        
         if(xhr.readyState === 4 && xhr.status === 200){
-            // My first order of business is to access the data itself. Data comes to us as JSON but that we want to be able to use the data as a JavaScript object.
+
             let requests = JSON.parse(xhr.response);
 
             console.log(requests);
-            
-            
+
 			
             for(let request of requests){
                 
 
             let request_container = document.getElementById('request_container');
 
-           
 
             let new_div = document.createElement('div');
             new_div.className = "request_div";
 
+
+      		let new_h32 = document.createElement('h3');
+
        
 
-			let new_h32 = document.createElement('h3');
+
 			new_h32.innerText = request.requestId;
 			
             let new_h3 = document.createElement('h3');
@@ -58,7 +60,6 @@ function getAllRequests(){
             let new_para3 = document.createElement('p');
             new_para3.innerText = "Status: " + request.requestStatus;
 
-          
 
             new_div.appendChild(new_h32);
             new_div.appendChild(new_h3);
@@ -66,7 +67,6 @@ function getAllRequests(){
             new_div.appendChild(new_para2);
             new_div.appendChild(new_para3);
 
-            //Append the new div created to the existing reimbursement_container on  web page.
 
             request_container.appendChild(new_div);
             }
@@ -74,10 +74,10 @@ function getAllRequests(){
         }
     }
     
-    // Open HTTP request. We need to specify an HTTP verb and the URL.
+
     xhr.open('GET', url); //readyState is 1
 
-    // Now let's send our HTTP request.
+   
     xhr.send(); //readyState is 2
     
 }
@@ -90,7 +90,6 @@ function logout() {
 
 }
 
-// invoking a function as soon as window loads
 window.onload = function(){
     this.getAllRequests();
 }

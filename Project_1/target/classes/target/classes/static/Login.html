@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Project_1_Login</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href=" Styles/LogInStyle.css">
+    </head> 
+    <body style="background-image:url('../Images/paper.jpg');">
+    <header>
+            <h2 >Employee Reimbursement Login</h2>
+      </header>
+        <div id = center class="center">
+        <form id="login_form" method="POST" onsubmit="return setLogin()" action="http://localhost:8080/logIn">
+                
+                    <!--<label>Username:</label><br>-->
+                    <input type="text" placeholder="Username" required maxlength="20" name="userName" id="userName"/>
+                    <br><br>
+					<input type="password" placeholder="Password"  required name="password" id = "password" />
+                        <br><br>
+
+                        <button id="button" type="submit" name="Sign-in">Sign-In</button>
+         				<footer>
+          				<h6>Copyright No One. No Rights Reserved.</h6>
+      					</footer>
+                        
+        </form>
+      </div>    
+    </body>
+    <script>
+    function setLogin() {
+    	
+    	let url = 'http://localhost:8080/user/';
+        
+        url = url + document.getElementById("userName").value;
+        console.log(url);
+
+        // Using the ready states of an XMLHttpRequest can guide your AJAX workflow.
+        let xhr = new XMLHttpRequest(); //readyState is 0
+        
+        xhr.onreadystatechange = function(){
+            // If the readyState is 4 and the HTTP status code is 200, I have access to the data I requested when I sent the HTTP request.
+            if(xhr.readyState === 4 && xhr.status === 200){
+                // My first order of business is to access the data itself. Note that the data comes to us as JSON but that we want to be able to use the data as a JavaScript object.
+                let result = JSON.parse(xhr.response);
+                
+    			localStorage.setItem("userName", result.name);
+            	}
+    		}
+         // Now let's open our HTTP request. We need to specify an HTTP verb and the URL.
+            xhr.open('GET', url); //readyState is 1
+
+            // Now let's send our HTTP request.
+            xhr.send(); //readyState is 2
+    	}
+    
+    </script>
+</html>

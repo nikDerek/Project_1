@@ -34,16 +34,19 @@ public class LogInRepository {
             Query<User> query = s.createQuery(cq);
             user = query.getSingleResult();
         
-         
+       
             if((user.getPassword().equals(password)) && user.getUserType() == "manager") {
             	ctx.req.getSession();
+
             	ctx.redirect("/managerHome.html");
             }else if((user.getPassword().equals(password)) && user.getUserType() == "employee") {
             	ctx.req.getSession();
             	ctx.redirect("/employeeHome.html");
-            }
+        
+          
+
         }catch(HibernateException e) {
-            //tx.rollback();
+            
             e.printStackTrace();
         }
         return user;
