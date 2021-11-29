@@ -44,7 +44,7 @@ public class LoginPage {
 	}
 	
 	
-	public void loginByHittingEnterInPasswordBox(String username, String password) {
+	public void loginByHittingEnter(String username, String password) {
 		
 		usernameBox.sendKeys(username);
 		passwordBox.sendKeys(password, Keys.ENTER);
