@@ -17,14 +17,6 @@ public class Driver {
 	public static void main(String[] args) {
 		Javalin app = Javalin.create().start(8080);
 		
-//		app.config.addStaticFiles("/static", Location.CLASSPATH);
-//		Context ctx;
-//		ctx.redirect("/Login.html");
-		
-//		Context ctx;
-//		ctx.redirect("/Login.html");
-		//app.get()
-		
 		app.post("/login", ctx -> {
 			ctx.req.getSession();
 		});
@@ -41,7 +33,6 @@ public class Driver {
 		
 		UserController userController = new UserController(app);
 		RequestController requestController = new RequestController(app);
-		//LogInController logInController = new LogInController(app);
-		
+	
 	}
 }
